@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Cerrar Sesión - FitGuide{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="text-center mb-0">Cerrar Sesión</h2>
+                </div>
+                <div class="card-body text-center">
+                    <p>¿Estás seguro de que deseas cerrar sesión?</p>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Sí, cerrar sesión</button>
+                        <a href="{% url 'home' %}" class="btn btn-secondary">No, volver al inicio</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

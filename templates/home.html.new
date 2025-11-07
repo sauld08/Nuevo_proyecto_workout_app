@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Ejercicios de Gimnasio</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Fit<span>Guide</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Inicio</a></li>
+                        <li><a href="#muscles">Grupos Musculares</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'ejercicio_nuevo' %}">Nuevo Ejercicio</a></li>
+                            <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+                        {% else %}
+                            <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+                            <li><a href="{% url 'signup' %}">Registrarse</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Los Mejores Ejercicios Para Cada Músculo Trabajado En El Gym</h1>
+            <p>Descubre los ejercicios más efectivos para cada grupo muscular y maximiza tus resultados en el gimnasio</p>
+        </div>
+    </section>
+
+    <!-- Muscle Groups Section -->
+    <section class="container" id="muscles">
+        <h2 class="section-title">Grupos Musculares</h2>
+        <div class="muscle-grid">
+            {% for grupo in grupos_musculares %}
+            <div class="muscle-card">
+                <div class="muscle-image" style="background-image: url('{% if grupo.imagen %}{{ grupo.imagen.url }}{% else %}{{ grupo.imagen_url|default:'https://images.unsplash.com/photo-1534367507877-0edd93bd013b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }}{% endif %}')"></div>
+                <div class="muscle-info">
+                    <h3>{{ grupo.nombre }}</h3>
+                    <p>{{ grupo.descripcion }}</p>
+                    <a href="{% url 'grupo_muscular_detalle' grupo.id %}" class="btn">Ver Ejercicios</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">FitGuide</div>
+                <p>Tu guía completa para entrenamientos efectivos en el gimnasio</p>
+                <ul class="footer-links">
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#muscles">Grupos Musculares</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'ejercicio_nuevo' %}">Nuevo Ejercicio</a></li>
+                    {% endif %}
+                </ul>
+                <div class="copyright">
+                    &copy; {% now "Y" %} FitGuide. Todos los derechos reservados.
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

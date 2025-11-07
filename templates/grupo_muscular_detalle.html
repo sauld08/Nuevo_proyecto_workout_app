@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ grupo_muscular.nombre }} - FitGuide</title>
+</head>
+<body>
+    <h1>{{ grupo_muscular.nombre }}</h1>
+    <p>{{ grupo_muscular.descripcion }}</p>
+    
+    <h2>Ejercicios</h2>
+    <div class="exercises-grid">
+        {% for ejercicio in grupo_muscular.ejercicios.all %}
+        <div class="exercise-card">
+            <img src="{% if ejercicio.imagen %}{{ ejercicio.imagen.url }}{% else %}{{ ejercicio.imagen_url }}{% endif %}" alt="{{ ejercicio.nombre }}">
+            <h3>{{ ejercicio.nombre }}</h3>
+            <p>{{ ejercicio.musculos_trabajados }}</p>
+            <p>{{ ejercicio.descripcion }}</p>
+            {% if user.is_authenticated %}
+            <a href="{% url 'ejercicio_editar' ejercicio.pk %}">Editar</a>
+            <a href="{% url 'ejercicio_eliminar' ejercicio.pk %}">Eliminar</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    
+    <a href="{% url 'home' %}">Volver al inicio</a>
+</body>
+</html>
