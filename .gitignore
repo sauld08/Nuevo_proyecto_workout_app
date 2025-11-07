@@ -1,1 +1,7 @@
 . venv/
+# Ignorar la base de datos de desarrollo
+db.sqlite3
+
+# Ignorar directorios de caché de Python
+__pycache__/
+*.pyc

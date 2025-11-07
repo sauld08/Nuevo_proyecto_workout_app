@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-v%(_gdf&g21_1icihri)$#6y4(m84qw=gj^x0in&_50ls+$*=a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
+=======
+ALLOWED_HOSTS = []
+>>>>>>> 483c967e976a71a3af2c5b67effc6fd16594fb9a
 
 
 # Application definition
@@ -101,6 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+<<<<<<< HEAD
 # Authentication settings
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
@@ -110,6 +115,12 @@ LOGOUT_REDIRECT_URL = 'home'
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 LANGUAGE_CODE = 'es'  # Cambiado a español
+=======
+# Internationalization
+# https://docs.djangoproject.com/en/5.2/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+>>>>>>> 483c967e976a71a3af2c5b67effc6fd16594fb9a
 
 TIME_ZONE = 'UTC'
 
@@ -118,6 +129,7 @@ USE_I18N = True
 USE_TZ = True
 
 
+<<<<<<< HEAD
 # Media (uploaded files)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -126,6 +138,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
+=======
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
+
+STATIC_URL = 'static/'
+>>>>>>> 483c967e976a71a3af2c5b67effc6fd16594fb9a
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Default primary key field type
