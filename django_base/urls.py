@@ -16,21 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-<<<<<<< HEAD
 from django.contrib.auth import views as auth_views
 from workout_app import views as app_views
 from django.conf import settings
 from django.conf.urls.static import static
-=======
->>>>>>> 483c967e976a71a3af2c5b67effc6fd16594fb9a
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('workout_app.urls')),
-<<<<<<< HEAD
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', app_views.logout_view, name='logout'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-=======
 ]
->>>>>>> 483c967e976a71a3af2c5b67effc6fd16594fb9a
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

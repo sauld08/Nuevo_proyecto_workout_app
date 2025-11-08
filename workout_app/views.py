@@ -2,13 +2,10 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-<<<<<<< HEAD
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout
 from .forms import SignUpForm
-=======
->>>>>>> 483c967e976a71a3af2c5b67effc6fd16594fb9a
 from .models import GrupoMuscular, Ejercicio
 
 class HomeView(ListView):
@@ -19,7 +16,7 @@ class HomeView(ListView):
 class GrupoMuscularDetailView(DetailView):
     model = GrupoMuscular
     template_name = 'grupo_muscular_detalle.html'
-    context_object_name = 'grupos_musculares'
+    context_object_name = 'grupo_muscular'
 
 class EjercicioCreateView(LoginRequiredMixin, CreateView):
     model = Ejercicio
@@ -37,7 +34,6 @@ class EjercicioDeleteView(LoginRequiredMixin, DeleteView):
     model = Ejercicio
     template_name = 'ejercicio_confirm_delete.html'
     success_url = reverse_lazy('home')
-<<<<<<< HEAD
 
 def signup(request):
     if request.method == 'POST':
@@ -60,5 +56,3 @@ def logout_view(request):
         logout(request)
         return redirect('home')
     return render(request, 'registration/logged_out.html')
-=======
->>>>>>> 483c967e976a71a3af2c5b67effc6fd16594fb9a

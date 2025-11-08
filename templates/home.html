@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio - FitGuide{% endblock %}
+
+{% block content %}
+<section class="container mt-4">
+    <h1 class="mb-3">Bienvenido a FitGuide</h1>
+    <p class="lead">Encuentra ejercicios organizados por grupos musculares.</p>
+
+    <hr>
+
+    <section id="muscles">
+        <h2>Grupos musculares</h2>
+        <div class="row">
+            {% for grupo in grupos_musculares %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if grupo.imagen %}
+                        <img src="{{ grupo.imagen.url }}" class="card-img-top" alt="{{ grupo.nombre }}">
+                    {% elif grupo.imagen_url %}
+                        <img src="{{ grupo.imagen_url }}" class="card-img-top" alt="{{ grupo.nombre }}">
+                    {% else %}
+                        <div class="card-img-top d-flex align-items-center justify-content-center bg-secondary text-white" style="height:180px;">Sin imagen</div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ grupo.nombre }}</h5>
+                        <p class="card-text">{{ grupo.descripcion|truncatewords:25 }}</p>
+                        <a href="{{ grupo.get_absolute_url }}" class="btn btn-primary">Ver ejercicios</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>No hay grupos musculares todavía.</p>
+            {% endfor %}
+        </div>
+    </section>
+</section>
+{% endblock %}
