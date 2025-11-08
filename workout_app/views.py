@@ -56,3 +56,9 @@ def logout_view(request):
         logout(request)
         return redirect('home')
     return render(request, 'registration/logged_out.html')
+
+
+class EjercicioDetailView(DetailView):
+    model = Ejercicio
+    template_name = 'ejercicio_detail.html'
+    context_object_name = 'ejercicio'

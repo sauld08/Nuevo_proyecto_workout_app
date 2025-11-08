@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ ejercicio.nombre }} - FitGuide{% endblock %}
+
+{% block content %}
+<section class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{ ejercicio.nombre }}</h1>
+            <p class="ejercicio-muscles"><strong>Músculos trabajados:</strong> {{ ejercicio.musculos_trabajados }}</p>
+            <div class="ejercicio-body mt-3">{{ ejercicio.descripcion|linebreaks }}</div>
+
+            {# Imagen colocada después del cuerpo de la publicación #}
+            {% if ejercicio.imagen %}
+                <img src="{{ ejercicio.imagen.url }}" alt="{{ ejercicio.nombre }}" class="img-fluid mt-3">
+            {% elif ejercicio.imagen_url %}
+                <img src="{{ ejercicio.imagen_url }}" alt="{{ ejercicio.nombre }}" class="img-fluid mt-3">
+            {% endif %}
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Grupo muscular</h5>
+                    <p><a href="{{ ejercicio.grupo_muscular.get_absolute_url }}">{{ ejercicio.grupo_muscular.nombre }}</a></p>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'ejercicio_editar' ejercicio.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                        <a href="{% url 'ejercicio_eliminar' ejercicio.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
