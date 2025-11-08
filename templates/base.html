@@ -22,7 +22,7 @@
                         <li><a href="{% url 'home' %}">Inicio</a></li>
                         <li><a href="{% url 'home' %}#muscles">Grupos Musculares</a></li>
                         {% if user.is_authenticated %}
-                            <li><a href="{% url 'ejercicio_nuevo' %}">Nuevo Ejercicio</a></li>
+                            <li><a href="{% url 'ejercicio_nuevo' %}">Nueva Rutina</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ user.username }} <span class="caret"></span>
