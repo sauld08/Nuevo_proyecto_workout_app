@@ -28,16 +28,29 @@ class EjercicioCreateView(LoginRequiredMixin, CreateView):
     fields = ['nombre', 'descripcion', 'grupo_muscular', 'musculos_trabajados', 'imagen', 'imagen_url', 'orden']
     success_url = reverse_lazy('home')
 
-class EjercicioUpdateView(LoginRequiredMixin, UpdateView):
+    def form_valid(self, form):
+        # assign the author to the logged in user
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class EjercicioUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Ejercicio
     template_name = 'ejercicio_form.html'
     fields = ['nombre', 'descripcion', 'grupo_muscular', 'musculos_trabajados', 'imagen', 'imagen_url', 'orden']
     success_url = reverse_lazy('home')
 
-class EjercicioDeleteView(LoginRequiredMixin, DeleteView):
+    def test_func(self):
+        ejercicio = self.get_object()
+        return ejercicio.author == self.request.user
+
+class EjercicioDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Ejercicio
     template_name = 'ejercicio_confirm_delete.html'
     success_url = reverse_lazy('home')
+
+    def test_func(self):
+        ejercicio = self.get_object()
+        return ejercicio.author == self.request.user
 
 def signup(request):
     if request.method == 'POST':

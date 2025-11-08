@@ -20,6 +20,7 @@ class GrupoMuscular(models.Model):
         return reverse('grupo_muscular_detalle', kwargs={'pk': self.pk})
 
 class Ejercicio(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='ejercicios', null=True, blank=True)
     nombre = models.CharField(max_length=200)
     descripcion = models.TextField(blank=True)
     grupo_muscular = models.ForeignKey(GrupoMuscular, on_delete=models.CASCADE, related_name='ejercicios')

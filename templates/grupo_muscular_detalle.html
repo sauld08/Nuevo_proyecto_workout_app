@@ -22,6 +22,7 @@
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ ejercicio.nombre }}</h5>
+                        <p class="card-subtitle text-muted">por {% if ejercicio.author %}{{ ejercicio.author.username }}{% else %}Anónimo{% endif %}</p>
                     </div>
                 </div>
             </a>

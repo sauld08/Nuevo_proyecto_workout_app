@@ -7,6 +7,7 @@
     <div class="row">
         <div class="col-md-8">
             <h1>{{ ejercicio.nombre }}</h1>
+            <p class="text-muted">Publicado por {% if ejercicio.author %}{{ ejercicio.author.username }}{% else %}Anónimo{% endif %}</p>
             <p class="ejercicio-muscles"><strong>Músculos trabajados:</strong> {{ ejercicio.musculos_trabajados }}</p>
             <div class="ejercicio-body mt-3">{{ ejercicio.descripcion|linebreaks }}</div>
 
@@ -22,7 +23,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Grupo muscular</h5>
                     <p><a href="{{ ejercicio.grupo_muscular.get_absolute_url }}">{{ ejercicio.grupo_muscular.nombre }}</a></p>
-                    {% if user.is_authenticated %}
+                    {% if user.is_authenticated and ejercicio.author == user %}
                         <a href="{% url 'ejercicio_editar' ejercicio.pk %}" class="btn btn-sm btn-primary">Editar</a>
                         <a href="{% url 'ejercicio_eliminar' ejercicio.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
                     {% endif %}
