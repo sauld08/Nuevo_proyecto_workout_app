@@ -2,11 +2,15 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout
 from .forms import SignUpForm
-from .models import GrupoMuscular, Ejercicio
+from .models import GrupoMuscular, Ejercicio, Comment
+from .forms import CommentForm
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 class HomeView(ListView):
     model = GrupoMuscular
@@ -62,3 +66,41 @@ class EjercicioDetailView(DetailView):
     model = Ejercicio
     template_name = 'ejercicio_detail.html'
     context_object_name = 'ejercicio'
+
+
+@login_required
+def comentario_nuevo(request, ejercicio_pk):
+    ejercicio = get_object_or_404(Ejercicio, pk=ejercicio_pk)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.ejercicio = ejercicio
+            comment.save()
+    return redirect(ejercicio.get_absolute_url())
+
+
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'comentario_form.html'
+
+    def get_success_url(self):
+        return self.object.ejercicio.get_absolute_url()
+
+    def test_func(self):
+        comment = self.get_object()
+        return comment.author == self.request.user
+
+
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
+    template_name = 'comentario_confirm_delete.html'
+
+    def get_success_url(self):
+        return self.object.ejercicio.get_absolute_url()
+
+    def test_func(self):
+        comment = self.get_object()
+        return comment.author == self.request.user

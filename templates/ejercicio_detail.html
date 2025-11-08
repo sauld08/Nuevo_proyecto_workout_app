@@ -31,4 +31,43 @@
         </div>
     </div>
 </section>
+<section class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Comentarios</h4>
+
+            {% if user.is_authenticated %}
+            <form action="{% url 'comentario_nuevo' ejercicio.pk %}" method="post" class="mb-4">
+                {% csrf_token %}
+                <div class="mb-2">
+                    <textarea name="content" rows="3" class="form-control" placeholder="Escribe un comentario..."></textarea>
+                </div>
+                <button class="btn btn-primary btn-sm">Comentar</button>
+            </form>
+            {% else %}
+            <p><a href="{% url 'login' %}?next={{ request.path }}">Inicia sesión</a> para comentar.</p>
+            {% endif %}
+
+            <div class="list-group">
+                {% for comentario in ejercicio.comentarios.all %}
+                <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">{{ comentario.author.username }}</h6>
+                        <small class="text-muted">{{ comentario.created_at|date:"d M Y H:i" }}</small>
+                    </div>
+                    <p class="mb-1">{{ comentario.content|linebreaks }}</p>
+                    {% if user == comentario.author %}
+                    <small>
+                        <a href="{% url 'comentario_editar' comentario.pk %}" class="me-2">Editar</a>
+                        <a href="{% url 'comentario_eliminar' comentario.pk %}" class="text-danger">Eliminar</a>
+                    </small>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <p>No hay comentarios todavía.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
