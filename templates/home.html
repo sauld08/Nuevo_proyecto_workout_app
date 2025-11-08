@@ -5,6 +5,56 @@
 {% block content %}
 <section class="container mt-4">
     <h1 class="mb-3">Bienvenido a FitGuide</h1>
+    {# Carousel: below welcome and above the lead paragraph #}
+    {# Fixed set of bodybuilding/gym images from Unsplash (free to use under Unsplash license). #}
+    <div id="homeCarousel" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://plus.unsplash.com/premium_photo-1682094035772-a5ccdb07d9b0?auto=format&fit=crop&q=80&w=1200" class="d-block w-100" alt="Bench press - chest" style="height:360px; object-fit:cover;">
+                <div class="carousel-caption d-none d-md-block" style="background-color: rgba(52,152,219,0.95); padding:0.6rem 1rem; border-radius:8px; display:inline-block; left:1rem; right:auto; bottom:1rem;">
+                    <h5 style="color:#fff; margin:0;">Press de pecho</h5>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://plus.unsplash.com/premium_photo-1663036276969-6abd2eb5c64d?auto=format&fit=crop&q=80&w=1200" class="d-block w-100" alt="Dumbbells" style="height:360px; object-fit:cover;">
+                <div class="carousel-caption d-none d-md-block" style="background-color: rgba(52,152,219,0.95); padding:0.6rem 1rem; border-radius:8px; display:inline-block; left:1rem; right:auto; bottom:1rem;">
+                    <h5 style="color:#fff; margin:0;">Peso libre y fuerza</h5>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://plus.unsplash.com/premium_photo-1667516661339-e70f5501b650?auto=format&fit=crop&q=80&w=1200" class="d-block w-100" alt="Bodybuilder" style="height:360px; object-fit:cover;">
+                <div class="carousel-caption d-none d-md-block" style="background-color: rgba(52,152,219,0.95); padding:0.6rem 1rem; border-radius:8px; display:inline-block; left:1rem; right:auto; bottom:1rem;">
+                    <h5 style="color:#fff; margin:0;">Bodybuilding</h5>
+                </div>
+            </div>
+            <div class="carousel-item">
+                {% comment %} Fallback: use first grupo image if available, otherwise a neutral block {% endcomment %}
+                {% if grupos_musculares and grupos_musculares.0.imagen %}
+                <img src="{{ grupos_musculares.0.imagen.url }}" class="d-block w-100" alt="{{ grupos_musculares.0.nombre }}" style="height:360px; object-fit:cover;">
+                {% else %}
+                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=1200" class="d-block w-100" alt="Gym motivation" style="height:360px; object-fit:cover;">
+                {% endif %}
+                <div class="carousel-caption d-none d-md-block" style="background-color: rgba(52,152,219,0.95); padding:0.6rem 1rem; border-radius:8px; display:inline-block; left:1rem; right:auto; bottom:1rem;">
+                    <h5 style="color:#fff; margin:0;">Motivación en el gimnasio</h5>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+
     <p class="lead">Encuentra ejercicios organizados por grupos musculares.</p>
 
     <hr>

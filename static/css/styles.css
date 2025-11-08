@@ -252,6 +252,39 @@ nav ul li a:hover {
     color: #333;
 }
 
+/* Carousel caption background for better contrast (higher specificity, force styles)
+   Ensures the blue background is visible behind caption text on top of images. */
+.carousel .carousel-caption {
+    position: absolute !important;
+    left: 1rem !important;
+    right: auto !important;
+    bottom: 1rem !important;
+    background-color: rgba(52, 152, 219, 0.95) !important; /* #3498db */
+    display: inline-block !important; /* shrink to content */
+    padding: 0.6rem 1rem !important;
+    border-radius: 8px !important;
+    z-index: 9999 !important; /* above the image */
+    max-width: calc(100% - 2rem) !important;
+    text-align: left !important;
+}
+
+.carousel .carousel-caption h5,
+.carousel .carousel-caption p {
+    color: #ffffff !important;
+    text-shadow: none !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 768px) {
+    .carousel .carousel-caption {
+        padding: 0.45rem 0.7rem !important;
+        font-size: 0.95rem !important;
+        left: 0.6rem !important;
+        right: 0.6rem !important;
+        bottom: 0.8rem !important;
+    }
+}
+
 /* Footer */
 footer {
     background-color: #2c3e50;
