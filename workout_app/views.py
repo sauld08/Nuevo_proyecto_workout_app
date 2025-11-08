@@ -25,7 +25,8 @@ class GrupoMuscularDetailView(DetailView):
 class EjercicioCreateView(LoginRequiredMixin, CreateView):
     model = Ejercicio
     template_name = 'ejercicio_form.html'
-    fields = ['nombre', 'descripcion', 'grupo_muscular', 'musculos_trabajados', 'imagen', 'imagen_url', 'orden']
+    # Remove 'imagen_url', 'orden' and 'musculos_trabajados' from the creation form per UX requirement
+    fields = ['nombre', 'descripcion', 'grupo_muscular', 'imagen']
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
@@ -36,7 +37,8 @@ class EjercicioCreateView(LoginRequiredMixin, CreateView):
 class EjercicioUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Ejercicio
     template_name = 'ejercicio_form.html'
-    fields = ['nombre', 'descripcion', 'grupo_muscular', 'musculos_trabajados', 'imagen', 'imagen_url', 'orden']
+    # Keep edit form consistent with create: remove 'imagen_url', 'orden' and 'musculos_trabajados'
+    fields = ['nombre', 'descripcion', 'grupo_muscular', 'imagen']
     success_url = reverse_lazy('home')
 
     def test_func(self):
